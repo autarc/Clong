@@ -10,6 +10,7 @@ var querystring     = require('querystring'),
     config          = require('./config.js');
 
 
+var maxConnections = 4;
 
 var CONNECTIONS = {};
 
@@ -22,20 +23,35 @@ var socketServer = new WebSocketServer({
 });
 
 
+
+var getKeys = Object.keys;
+
 socketServer.on('request', function ( req ) {
 
-  var conn = req.accept( null, req.origin ),
+  var entries = getKeys(CONNECTIONS),
+      id      = entries.length;
 
-      time = Date.now();
+  if ( id === maxConnections ) return;
 
-  conn.send( JSON.stringify({ id: time, action: 'REGISTER', data: time }) );
+  var conn = req.accept( null, req.origin );
 
-  CONNECTIONS[ time ] = conn;
+  conn.send( JSON.stringify({ id: id, action: 'REGISTER', data: id }) );
+
+
+  for ( var i = 0; i < id; i++ ) {
+
+    conn.send( JSON.stringify({ action: 'REGISTER', data: i }) );
+  }
+
+  CONNECTIONS[ id ] = conn;
 
   conn.on('error', function(){ console.log('[ERROR]'); });
-  conn.on('close', function(){ console.log('[CLOSE]'); });
+  conn.on('close', function(){ console.log('[CLOSE]'); }); // TODP: remove on leave
+
   conn.on('message', handle );
+
 });
+
 
 function handle ( msg ) {
 
@@ -43,13 +59,6 @@ function handle ( msg ) {
 
   console.log(msg);
 }
-
-// INIT
-// MOVE
-// COLOR
-
-
-var getKeys = Object.keys;
 
 function sendAll ( action, data ) {
 
