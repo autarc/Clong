@@ -1,0 +1,22 @@
+{
+  "name"        : "Clong",
+  "description" : "",
+  "version"     : "0.1.0",
+  "homepage"    : "https://github.com/Autarc/Clong",
+
+  "repository"  : {
+    "type"      : "git",
+    "url"       : "https://github.com/Autarc/Clong"
+  },
+   "author"      : {
+    "name"      : "",
+    "email"     : "",
+    "url"       : ""
+  },
+
+  "license"     : "MIT",
+
+  "dependencies" : {
+    "websocket" : "latest"
+  }
+}
