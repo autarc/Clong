@@ -4,18 +4,24 @@
   // Keyboard
   KeyboardJS.on('w', function() {
     clong.player.cube.position.y+=5;
+
+    clong.send('MOVE', { y: clong.player.cube.position.y, x: clong.player.cube.position.x  });
   });
 
   KeyboardJS.on('a', function() {
+
     clong.player.cube.position.x-=5;
+    clong.send('MOVE', { y: clong.player.cube.position.y, x: clong.player.cube.position.x  });
   });
 
   KeyboardJS.on('s', function() {
     clong.player.cube.position.y-=5;
+    clong.send('MOVE', { y: clong.player.cube.position.y, x: clong.player.cube.position.x  });
   });
 
   KeyboardJS.on('d', function() {
     clong.player.cube.position.x+=5;
+    clong.send('MOVE', { y: clong.player.cube.position.y, x: clong.player.cube.position.x  });
   });
 
 

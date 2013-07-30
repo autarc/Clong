@@ -12,8 +12,10 @@
   var commands = {
 
     'REGISTER' : register,
+    'ADD'      : addPlayer,
     'MOVE'     : movePlayer,
     'COLOR'    : changeColor
+
   };
 
 
@@ -24,7 +26,7 @@
    *  @return {[type]}        [description]
    */
   function handle ( action, data ) {
-    console.log(action, data);
+
     commands[ action ]( data );
   }
 
@@ -39,13 +41,23 @@
    */
   function register ( id ) {
 
+    if ( !clong.id ) clong.id = id;
+
     var player = new Player( id, clong.color );
 
-    if ( !clong.player ) clong.player = player;
+    clong.player = player;
 
-    clong.players.push( player );
+    clong.send( 'COLOR', clong.color );
+    clong.send( 'MOVE', { x: player.cube.position.x, y: player.cube.position.y });
   }
 
+
+  function addPlayer ( data ) {
+
+    var player = new Player( data.id, data.color, data.pos );
+
+    clong.players[ data.id ] = player;
+  }
 
   /**
    *  [movePlayer description]
@@ -54,9 +66,12 @@
    *  @param  {[type]} posY [description]
    *  @return {[type]}      [description]
    */
-  function movePlayer ( id, posX, posY ) {
+  function movePlayer ( data ) {
 
-    // position ? movement on a grid ?
+    var player = clong.players[ data.id ];
+
+    player.cube.position.x = data.pos.x;
+    player.cube.position.y = data.pos.y;
   }
 
 

@@ -2,10 +2,11 @@
 (function(){
 
   // var ID = null;
+  var socket = null;
 
   clong.createSocket = function createSocket(){
 
-    var socket = new WebSocket( 'ws://' + location.host );
+    socket = new WebSocket( 'ws://' + location.host );
 
     socket.onopen = function ()  { console.log('[OPEN]');  };
     socket.onclose = function () { console.log('[CLOSE]'); };

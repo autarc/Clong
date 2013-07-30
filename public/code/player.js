@@ -6,7 +6,7 @@
   clong.players = [];
   clong.player  = null;
 
-  function Player ( id, color ) {
+  function Player ( id, color, pos ) {
 
     this.id = id;
 
@@ -29,8 +29,18 @@
 
         cube     = new THREE.Mesh( geometry, cubeMaterial );
 
-    cube.position.x = cube_width/2;
-    cube.position.y = cube_height/2;
+
+    var x = id * cube_width,
+        y = id * cube_height;
+
+    if ( pos ) {
+
+      x = pos.x;
+      y = pos.y;
+    }
+
+    cube.position.x = x;
+    cube.position.y = y;
 
     scene.add(cube);
 
