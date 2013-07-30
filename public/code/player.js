@@ -14,6 +14,8 @@
 
     this.echoes = [];
 
+    this.echoes.push(sound);
+
     // create the cube's material
     var cubeMaterial = new THREE.MeshLambertMaterial({ color: color });
 
@@ -45,6 +47,7 @@
     scene.add(cube);
 
     this.cube = cube;
+
   }
 
 // })();
