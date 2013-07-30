@@ -1,5 +1,15 @@
 window.clong = {
 
-  port: 2020
+  config: {
+
+    port: 2020,
+
+    size: {
+
+      width: 800,
+      height: 600
+    }
+  }
+
 };
 
