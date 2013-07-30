@@ -1,7 +1,6 @@
 // require([], function(){
 (function(){
 
-
   init();
 
   function init(){
@@ -19,6 +18,10 @@
       clong.createSocket()
 
       init_game();
+
+      init_player();
+
+      animate();
 
     });
 
@@ -61,26 +64,6 @@
     // attach the render-supplied DOM element
     $container.append(renderer.domElement);
 
-    // create the sphere's material
-    var cubeMaterial = new THREE.MeshLambertMaterial(
-    {
-        color: clong.color
-    });
-
-    // set up the cube vars
-    var cube_width = 100, cube_height = 100, cube_depth = 100, widthSegments = 10, heightSegments = 10, depthSegments = 10;
-
-    // create a new mesh with cube geometry -
-    // we will cover the cubeMaterial next!
-    var cube = new THREE.Mesh(
-       new THREE.CubeGeometry(cube_width, cube_height, cube_depth, widthSegments, heightSegments, depthSegments), 
-       cubeMaterial);
-
-    var radius = 100, tube = 10, radialSegments = 100, tubularSegments = 100;
-
-    // add the cube to the scene
-    scene.add(cube);
-
     // and the camera
     scene.add(camera);
 
@@ -91,29 +74,8 @@
     // add to the scene
     scene.add(directionalLight);
 
-    // draw!
-    renderer.render(scene, camera); 
-
-    KeyboardJS.on('w', function() {
-        cube.position.y+=5;
-    });
-
-    KeyboardJS.on('a', function() {
-        cube.position.x-=5;
-    });
-
-    KeyboardJS.on('s', function() {
-        cube.position.y-=5;
-    });
-
-    KeyboardJS.on('d', function() {
-        cube.position.x+=5;
-    });
-
-    animate();
-
   }
- 
+
   function animate() {
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
