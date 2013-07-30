@@ -1,7 +1,9 @@
 // require([], function(){
 (function(){
 
-  init();
+  init();  
+
+  lines_array = [];
 
   function init(){
 
@@ -76,10 +78,43 @@
 
   }
 
+  function redraw_line(line) {
+
+    scene.remove(line);
+
+    var amplitude = line.amplitude;
+
+    amplitude+=1;
+
+    var posi = line.position;
+
+    var geometry = new THREE.Geometry();
+    for(var i = 0; i <= resolution; i++) {
+        var segment = ( i * size ) * Math.PI / 180;
+        geometry.vertices.push(new THREE.Vector3( Math.cos( segment ) * amplitude, Math.sin( segment ) * amplitude, 0 ));         
+    }
+
+    var new_line = new THREE.Line( geometry, material );
+
+    new_line.position = posi;
+
+    new_line.amplitude = amplitude;
+
+    lines_array.push(new_line);
+
+    scene.add(new_line);
+
+  } 
+
   function animate() {
     requestAnimationFrame( animate );
+    for (var j=0; j<lines_array.length; j++) {         
+      redraw_line(lines_array.shift());  
+    }    
     renderer.render( scene, camera );
   }
+
+
 
 
 })();
