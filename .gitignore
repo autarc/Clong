@@ -1,0 +1,6 @@
+# ~
+# .gitignore
+
+# node modules
+/app/node_modules/
+
