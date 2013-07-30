@@ -24,7 +24,7 @@
    *  @return {[type]}        [description]
    */
   function handle ( action, data ) {
-
+    console.log(action, data);
     commands[ action ]( data );
   }
 
@@ -39,7 +39,11 @@
    */
   function register ( id ) {
 
-    clong.id = id;
+    var player = new Player( id, clong.color );
+
+    if ( !clong.player ) clong.player = player;
+
+    clong.players.push( player );
   }
 
 
