@@ -21,10 +21,7 @@
 
       init_game();
 
-      init_player();
-
       animate();
-
     });
 
   }
@@ -47,9 +44,9 @@
 
     // create a WebGL renderer, camera
     // and a scene
-    var renderer = new THREE.WebGLRenderer();
-        camera   = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-        scene    = new THREE.Scene();
+    renderer = new THREE.WebGLRenderer();
+    camera   = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+    scene    = new THREE.Scene();
 
     // the camera starts at 0,0,0 so pull it back
     camera.position.z = 1000;

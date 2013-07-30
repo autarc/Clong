@@ -1,13 +1,16 @@
 // define([], function(){
-(function(){
+// (function(){
 
-  var maxPlayers = 4;
-
-  var part = clong.config.size.width / maxPlayers;
+  var part = clong.config.size.width / clong.config.maxPlayers;
 
   clong.players = [];
+  clong.player  = null;
 
   function Player ( id, color ) {
+
+    this.id = id;
+
+    this.color = color;
 
     this.echoes = [];
 
@@ -24,12 +27,14 @@
 
     var geometry = new THREE.CubeGeometry(cube_width, cube_height, cube_depth, widthSegments, heightSegments, depthSegments ),
 
-    var cube = new THREE.Mesh( geometry, cubeMaterial );
+        cube     = new THREE.Mesh( geometry, cubeMaterial );
 
-    cube.position.x = ( id * part ) - cube_width/2;
+    cube.position.x = cube_width/2;
     cube.position.y = cube_height/2;
 
     scene.add(cube);
+
+    this.cube = cube;
   }
 
-})();
+// })();
