@@ -1,7 +1,7 @@
 // require([], function(){
 (function(){
 
-  init();  
+  init();
 
   lines_array = [];
 
@@ -31,18 +31,15 @@
 
   function init_game() {
 
-    x = $(window).width() - 20 ;
-    y = $(window).height() - 30 ;
-
     // set the scene size
-    var WIDTH = x,
-        HEIGHT = y;
+    var WIDTH = clong.config.size.width,
+        HEIGHT = clong.config.size.height;
 
     // set some camera attributes
     var VIEW_ANGLE = 45,
-        ASPECT = WIDTH / HEIGHT,
-        NEAR = 0.1,
-        FAR = 10000;
+        ASPECT     = WIDTH / HEIGHT,
+        NEAR       = 0.1,
+        FAR        = 10000;
 
     // get the DOM element to attach to
     // - assume we've got jQuery to hand
@@ -50,12 +47,9 @@
 
     // create a WebGL renderer, camera
     // and a scene
-    renderer = new THREE.WebGLRenderer();
-    camera = new THREE.PerspectiveCamera(  VIEW_ANGLE,
-                                    ASPECT,
-                                    NEAR,
-                                    FAR  );
-    scene = new THREE.Scene();
+    var renderer = new THREE.WebGLRenderer();
+        camera   = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+        scene    = new THREE.Scene();
 
     // the camera starts at 0,0,0 so pull it back
     camera.position.z = 1000;
@@ -91,7 +85,7 @@
     var geometry = new THREE.Geometry();
     for(var i = 0; i <= resolution; i++) {
         var segment = ( i * size ) * Math.PI / 180;
-        geometry.vertices.push(new THREE.Vector3( Math.cos( segment ) * amplitude, Math.sin( segment ) * amplitude, 0 ));         
+        geometry.vertices.push(new THREE.Vector3( Math.cos( segment ) * amplitude, Math.sin( segment ) * amplitude, 0 ));
     }
 
     var new_line = new THREE.Line( geometry, material );
@@ -103,18 +97,16 @@
     lines_array.push(new_line);
 
     scene.add(new_line);
-
-  } 
-
-  function animate() {
-    requestAnimationFrame( animate );
-    for (var j=0; j<lines_array.length; j++) {         
-      redraw_line(lines_array.shift());  
-    }    
-    renderer.render( scene, camera );
   }
 
+  function animate() {
 
+    requestAnimationFrame( animate );
 
+    for (var j=0; j<lines_array.length; j++) {
+      redraw_line(lines_array.shift());
+    }
+    renderer.render( scene, camera );
+  }
 
 })();
